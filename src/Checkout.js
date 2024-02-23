@@ -6,7 +6,11 @@ export default function Checkout(props) {
     for(let i=0; i<props.order.length; i++) {
       total+=(props.order[i].price*props.order[i].count);
     }
-    return total;
+    return {
+      subtotal:total,
+      tax:0.09*total,
+      total:1.09*total
+    };
   }
 
   return(
@@ -22,7 +26,9 @@ export default function Checkout(props) {
       { props.order.length>0 ? 
         (
           <div id="totalDiv">
-            <h2>Subtotal: ${getTotal().toFixed(2)}</h2>
+            <h2>Subtotal: ${getTotal().subtotal.toFixed(2)}</h2>
+            <h2>Tax: ${getTotal().tax.toFixed(2)}</h2>
+            <h2>Total: ${getTotal().total.toFixed(2)}</h2>
           </div>
         ) : 
         <h2>Nothing in cart :(</h2>
